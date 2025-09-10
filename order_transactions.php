@@ -1,3 +1,8 @@
+<?php
+// Include database connection
+require_once 'db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,12 +113,12 @@
     <header>
         <div class="logo">🐾 Fluffy Planet</div>
         <nav>
-            <a href="petshop.html">Home</a>
-            <a href="categories.html">Categories</a>
-            <a href="newarrival.html">New Arrivals</a>
-            <a href="order.html">Order</a>
-            <a href="order_transactions.html" class="order">Order Transaction</a>
-            <a href="history.html">History</a>
+            <a href="petshop.php">Home</a>
+            <a href="categories.php">Categories</a>
+            <a href="newarrival.php">New Arrivals</a>
+            <a href="order.php">Order</a>
+            <a href="order_transactions.php" class="order">Order Transaction</a>
+            <a href="history.php">History</a>
         </nav>
     </header>
 
@@ -225,7 +230,7 @@
                 document.getElementById("orderTotal").textContent = "$0.00";
 
                 alert("Order confirmed and added to history!");
-                window.location.href = "history.html";
+                window.location.href = "history.php";
             });
         });
     </script>

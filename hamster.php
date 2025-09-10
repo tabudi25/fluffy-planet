@@ -1,3 +1,7 @@
+<?php
+// Include database connection
+require_once 'db.php';
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -139,138 +143,137 @@
     <header>
       <div class="logo">🐾 Fluffy Planet</div>
       <nav>
-        <a href="petshop.html" class="home">Home</a>
-        <a href="categories.html" class="categories">Categories</a>
-        <a href="newarrival.html">New Arrivals</a>
-        <a href="order.html">Order</a>
-        <a href="order_transactions.html">Order Transaction</a>
-        <a href="order.html">History</a>
+        <a href="petshop.php" class="home">Home</a>
+        <a href="categories.php" class="categories">Categories</a>
+        <a href="newarrival.php">New Arrivals</a>
+        <a href="order.php">Order</a>
+        <a href="order_transactions.php">Order Transaction</a>
+        <a href="order.php">History</a>
       </nav>
       <div class="search-box">
         <input type="text" placeholder="Search a Breed..." /><button class="search-btn">Search</button>
       </div>
     </header>
 
-    <h1 class="breed">Telapia Cat</h1>
+    <h1 class="breed">Dwarf Hamster</h1>
     <div class="grid">
       <div class="card">
-        <img src="./web/telapia1.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
+        <img src="./web/Hamster1.jfif" alt="Pookie" />
+        <p>Pookie <span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/telapia2.jfif" alt="Bochi" />
+        <img src="./web/hamster2.jfif" alt="Bochi" />
         <p>Bochi<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/telapia3.jfif" alt="Pochi" />
-        <p>Pochi <span class="prices">$100.0</span></p>
+        <img src="./web/hamster3.jfif" alt="Pochi" />
+        <p>Pochi<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/telapia4.jfif" alt="Chokie" />
+        <img src="./web/hamster4.jfif" alt="Chokie" />
         <p>Chokie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/telapia5.jfif" alt="Chogi" />
-        <p>Chogi <span class="prices">$100.0</span></p>
+        <img src="./web/hamster5.jfif" alt="Chogi" />
+        <p>Chogi<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
       <div class="card">
-        <img src="./web/telapia6.jfif" alt="Pan-pan" />
-        <p>Pan-pan <span class="prices">$100.0</span></p>
+        <img src="./web/hamster6.png" alt="Pan-pan" />
+        <p>Pan-pan<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/telapia7.jfif" alt="Bochi" />
+        <img src="./web/hamster7.png" alt="Bochi" />
         <p>Chingkie<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/telapia8.jfif" alt="Pookie" />
+        <img src="./web/hamster8.jfif" alt="Pookie" />
         <p>Beepo<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/telapia9.jfif" alt="Pookie" />
+        <img src="./web/hamster9.jfif" alt="Pookie" />
         <p>Whity<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/telapia10.jfif" alt="Pookie" />
-        <p>Koko <span class="prices">$100.0</span></p>
+        <img src="./web/hamster10.png" alt="Pookie" />
+        <p>Koko<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
     </div>
-    <h1 class="breed">Persian Cat</h1>
+    <h1 class="breed">Chinese Hamster</h1>
     <div class="grid">
       <div class="card">
-        <img src="./web/persian1.jfif" alt="Pookie" />
+        <img src="./web/hamster11.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/persian2.jfif" alt="Bochi" />
+        <img src="./web/hamster12.jfif" alt="Bochi" />
+        <p>Bochi <span class="prices">$900.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/hamster13.png" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/hamster14.png" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/hamster15.png" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+      <div class="card">
+        <img src="./web/hamster16.jfif" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/hamster17.jfif" alt="Bochi" />
         <p>Bochi<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/persian3.jfif" alt="Pookie" />
+        <img src="./web/hamster18.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/persian4.jfif" alt="Pookie" />
-        <p>Pookie <span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-
-      <div class="card">
-        <img src="./web/persian5.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-      <div class="card">
-        <img src="./web/persian7.jfif" alt="Pookie" />
+        <img src="./web/hamster19.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/persian8.jfif" alt="Bochi" />
-        <p>Bochi<span class="prices">$900.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-
-      <div class="card">
-        <img src="./web/persian9.jfif" alt="Pookie" />
+        <img src="./web/hamster20.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-
-      <!-- Repeat more cards to fill rows -->
-      <div class="card">
-        <img src="./web/persian10.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-
-      <div class="card">
-        <img src="./web/persian6.jfif" alt="Pookie" />
-        <p>Pookie <span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
     </div>

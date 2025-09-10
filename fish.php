@@ -1,3 +1,8 @@
+<?php
+// Include database connection
+require_once 'db.php';
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -139,136 +144,136 @@
     <header>
       <div class="logo">🐾 Fluffy Planet</div>
       <nav>
-        <a href="petshop.html" class="home">Home</a>
-        <a href="categories.html" class="categories">Categories</a>
-        <a href="newarrival.html">New Arrivals</a>
-        <a href="order.html">Order</a>
-        <a href="order_transactions.html">Order Transaction</a>
-        <a href="order.html">History</a>
+        <a href="petshop.php" class="home">Home</a>
+        <a href="categories.php" class="categories">Categories</a>
+        <a href="newarrival.php">New Arrivals</a>
+        <a href="order.php">Order</a>
+        <a href="order_transactions.php">Order Transaction</a>
+        <a href="order.php">History</a>
       </nav>
       <div class="search-box">
         <input type="text" placeholder="Search a Breed..." /><button class="search-btn">Search</button>
       </div>
     </header>
 
-    <h1 class="breed">Husky</h1>
+    <h1 class="breed">Koi Fish</h1>
     <div class="grid">
       <div class="card">
-        <img src="./web/dog1.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
+        <img src="./web/Fish1.jfif" alt="Pookie" />
+        <p>Pookie <span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog2.jfif" alt="Bochi" />
+        <img src="./web/fish2.jfif" alt="Bochi" />
         <p>Bochi<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog3.jfif" alt="Pochi" />
-        <p>Pochi<span class="prices">$100.0</span></p>
+        <img src="./web/fish3.jfif" alt="Pochi" />
+        <p>Pochi <span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog4.jfif" alt="Chokie" />
-        <p>Chokie <span class="prices">$100.0</span></p>
+        <img src="./web/fish4.jfif" alt="Chokie" />
+        <p>Chokie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog5.jfif" alt="Chogi" />
-        <p>Chogi<span class="prices">$100.0</span></p>
+        <img src="./web/fish5.jfif" alt="Chogi" />
+        <p>Chogi <span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
       <div class="card">
-        <img src="./web/dog6.jfif" alt="Pan-pan" />
+        <img src="./web/fish6.jfif" alt="Pan-pan" />
         <p>Pan-pan<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog7.jfif" alt="Bochi" />
+        <img src="./web/fish7.jfif" alt="Bochi" />
         <p>Chingkie<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog8.jfif" alt="Pookie" />
+        <img src="./web/fish8.jfif" alt="Pookie" />
         <p>Beepo<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog9.jfif" alt="Pookie" />
+        <img src="./web/fish9.jfif" alt="Pookie" />
         <p>Whity<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog10.jfif" alt="Pookie" />
+        <img src="./web/fish10.jfif" alt="Pookie" />
         <p>Koko<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
     </div>
-    <h1 class="breed">Golden Retriever</h1>
+    <h1 class="breed">Betta Fish</h1>
     <div class="grid">
       <div class="card">
-        <img src="./web/dog11.jfif" alt="Pookie" />
+        <img src="./web/fish11.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog12.jfif" alt="Bochi" />
+        <img src="./web/fish12.jfif" alt="Bochi" />
         <p>Bochi<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog13.jfif" alt="Pookie" />
+        <img src="./web/fish13.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog14.jfif" alt="Pookie" />
+        <img src="./web/fish14.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog15.jfif" alt="Pookie" />
+        <img src="./web/fish15.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
       <div class="card">
-        <img src="./web/dog16.jfif" alt="Pookie" />
+        <img src="./web/fish16.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog17.jfif" alt="Bochi" />
+        <img src="./web/fish17.jfif" alt="Bochi" />
         <p>Bochi<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog18.jfif" alt="Pookie" />
+        <img src="./web/fish18.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog19.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
+        <img src="./web/fish19.jfif" alt="Pookie" />
+        <p>Pookie <span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/dog20.jfif" alt="Pookie" />
+        <img src="./web/fish20.png" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>

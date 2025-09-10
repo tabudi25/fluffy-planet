@@ -1,18 +1,20 @@
+<?php
+// Include database connection
+require_once 'db.php';
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fluffy Planet</title>
     <style>
       body {
-        margin: 0;
-        font-family: "Segoe UI", sans-serif;
+        font-family: Arial, sans-serif;
         background-color: #fff8f1;
-        color: #2c2c2c;
+        margin: 0;
       }
 
-      /* HEADER */
       header {
         display: flex;
         justify-content: space-between;
@@ -43,34 +45,18 @@
         background-color: #bbb5b2;
       }
 
-      .newarrival {
-        text-decoration: underline;
-        background-color: #eccfb2;
-      }
-
       .search-box {
         background: #f2f2f2;
         padding: 5px 10px;
         border-radius: 5px;
       }
 
-      /* CATEGORY TITLE */
-      .breed {
-        text-align: center;
-        font-size: 30px;
-        font-weight: bold;
-        margin: 20px 50px 10px;
-      }
-
-      /* PRODUCT GRID */
       .grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(2, auto);
         gap: 20px;
-        padding: 20px 50px;
-        background-color: #fff1e6;
-        border-radius: 5px;
-        margin: 0 50px 30px;
+        padding: 20px;
       }
 
       .card {
@@ -82,32 +68,24 @@
       }
 
       .card img {
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
         object-fit: contain;
       }
 
       .buy-btn {
         display: inline-block;
         margin-top: 10px;
-        padding: 8px 20px;
+        padding: 10px 20px;
         background-color: limegreen;
         color: white;
         font-weight: bold;
         border-radius: 25px;
         text-decoration: none;
-        cursor: pointer;
       }
 
       .buy-btn:hover {
         background-color: rgb(57, 236, 57);
-      }
-
-      .prices {
-        margin-left: 7px;
-        margin-top: 5px;
-        color: green;
-        font-size: 14px;
       }
 
       .price {
@@ -115,6 +93,13 @@
         margin-top: 5px;
         color: green;
         font-size: 14px;
+      }
+
+      .breed {
+        text-align: center;
+        background-color: rgb(245, 237, 237);
+        padding-top: 7px;
+        padding-bottom: 7px;
       }
 
       .search-box input {
@@ -141,48 +126,16 @@
         color: rgb(0, 82, 0);
       }
 
-      /* CONFIRMATION MODAL */
-      .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: none;
-        align-items: center;
-        justify-content: center;
+      .categories {
+        text-decoration: underline;
+        background-color: #eccfb2;
       }
 
-      .modal-content {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        text-align: center;
-        width: 300px;
-      }
-
-      .modal-content p {
-        margin-bottom: 20px;
-        font-size: 16px;
-      }
-
-      .modal-content button {
-        margin: 0 10px;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-      }
-
-      .cancel-btn {
-        background-color: #ccc;
-      }
-
-      .continue-btn {
-        background-color: limegreen;
-        color: white;
+      .prices {
+        margin-left: 7px;
+        margin-top: 5px;
+        color: green;
+        font-size: 14px;
       }
     </style>
   </head>
@@ -191,115 +144,143 @@
     <header>
       <div class="logo">🐾 Fluffy Planet</div>
       <nav>
-        <a href="petshop.html">Home</a>
-        <a href="categories.html" class="categories">Categories</a>
-        <a href="newarrival.html" class="newarrival">New Arrivals</a>
-        <a href="order.html">Order</a>
-        <a href="order_transactions.html">Order Transaction</a>
-        <a href="history.html">History</a>
+        <a href="petshop.php" class="home">Home</a>
+        <a href="categories.php" class="categories">Categories</a>
+        <a href="newarrival.php">New Arrivals</a>
+        <a href="order.php">Order</a>
+        <a href="order_transactions.php">Order Transaction</a>
+        <a href="order.php">History</a>
       </nav>
       <div class="search-box">
         <input type="text" placeholder="Search a Breed..." /><button class="search-btn">Search</button>
       </div>
     </header>
 
-    <h2 class="breed">Cat</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="./web/telapia3.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-      <div class="card">
-        <img src="./web/telapia6.jfif" alt="Bochi" />
-        <p>Bochi<span class="prices">$900.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-      <div class="card">
-        <img src="./web/persian5.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-      <div class="card">
-        <img src="./web/persian8.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-      <div class="card">
-        <img src="./web/telapia10.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-    </div>
-
-    <h2 class="breed">Rabbit</h2>
+    <h1 class="breed">Netherland Dwarf rabbit</h1>
     <div class="grid">
       <div class="card">
         <img src="./web/rabbit1.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
+
       <div class="card">
-        <img src="./web/rabbit20.jfif" alt="Bochi" />
+        <img src="./web/rabbit2.jfif" alt="Bochi" />
         <p>Bochi<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
+
       <div class="card">
-        <img src="./web/rabbit12.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
+        <img src="./web/rabbit3.jfif" alt="Pochi" />
+        <p>Pochi<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
+
+      <div class="card">
+        <img src="./web/rabbit4.jfif" alt="Chokie" />
+        <p>Chokie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/rabbit5.jfif" alt="Chogi" />
+        <p>Chogi<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+      <div class="card">
+        <img src="./web/rabbit6.jfif" alt="Pan-pan" />
+        <p>Pan-pan<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/rabbit7.jfif" alt="Bochi" />
+        <p>Chingkie<span class="prices">$900.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/rabbit8.jfif" alt="Pookie" />
+        <p>Beepo<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/rabbit9.jfif" alt="Pookie" />
+        <p>Whity<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
       <div class="card">
         <img src="./web/rabbit10.jfif" alt="Pookie" />
+        <p>Koko<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+    </div>
+    <h1 class="breed">Mini Lop Rabbit</h1>
+    <div class="grid">
+      <div class="card">
+        <img src="./web/rabbit11.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
+
+      <div class="card">
+        <img src="./web/rabbit12.jfif" alt="Bochi" />
+        <p>Bochi<span class="prices">$900.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/rabbit13.jfif" alt="Pookie" />
+        <p>Pookie <span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <!-- Repeat more cards to fill rows -->
+      <div class="card">
+        <img src="./web/rabbit14.jfif" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/rabbit15.jfif" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+      <div class="card">
+        <img src="./web/rabbit16.jfif" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/rabbit17.jfif" alt="Bochi" />
+        <p>Bochi<span class="prices">$900.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
       <div class="card">
         <img src="./web/rabbit18.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
-    </div>
 
-    <h2 class="breed">Dog</h2>
-    <div class="grid">
+      <!-- Repeat more cards to fill rows -->
       <div class="card">
-        <img src="./web/dog1.jfif" alt="Pookie" />
+        <img src="./web/rabbit19.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
+
       <div class="card">
-        <img src="./web/dog20.jfif" alt="Bochi" />
-        <p>Bochi<span class="prices">$900.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-      <div class="card">
-        <img src="./web/dog17.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-      <div class="card">
-        <img src="./web/dog10.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-      <div class="card">
-        <img src="./web/dog5.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
+        <img src="./web/rabbit20.jfif" alt="Pookie" />
+        <p>Pookie <span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
     </div>
 
-    <!-- CONFIRMATION MODAL -->
-    <div class="modal" id="confirmModal">
-      <div class="modal-content">
-        <p id="confirmText">Are you sure you want to buy this?</p>
-        <button class="cancel-btn" id="cancelBtn">Cancel</button>
-        <button class="continue-btn" id="continueBtn">Continue</button>
-      </div>
-    </div>
-
-    <!-- ORDER LOGIC -->
     <script>
       let selectedItem = null; // store clicked item
 
@@ -343,7 +324,7 @@
 
           // Hide modal and go to order page
           document.getElementById("confirmModal").style.display = "none";
-          window.location.href = "order.html";
+          window.location.href = "order.php";
         }
       });
     </script>

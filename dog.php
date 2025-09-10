@@ -1,3 +1,8 @@
+<?php
+// Include database connection
+require_once 'db.php';
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -139,189 +144,139 @@
     <header>
       <div class="logo">🐾 Fluffy Planet</div>
       <nav>
-        <a href="petshop.html" class="home">Home</a>
-        <a href="categories.html" class="categories">Categories</a>
-        <a href="newarrival.html">New Arrivals</a>
-        <a href="order.html">Order</a>
-        <a href="order_transactions.html">Order Transaction</a>
-        <a href="order.html">History</a>
+        <a href="petshop.php" class="home">Home</a>
+        <a href="categories.php" class="categories">Categories</a>
+        <a href="newarrival.php">New Arrivals</a>
+        <a href="order.php">Order</a>
+        <a href="order_transactions.php">Order Transaction</a>
+        <a href="order.php">History</a>
       </nav>
       <div class="search-box">
         <input type="text" placeholder="Search a Breed..." /><button class="search-btn">Search</button>
       </div>
     </header>
 
-    <h1 class="breed">Netherland Dwarf rabbit</h1>
+    <h1 class="breed">Husky</h1>
     <div class="grid">
       <div class="card">
-        <img src="./web/rabbit1.jfif" alt="Pookie" />
+        <img src="./web/dog1.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit2.jfif" alt="Bochi" />
+        <img src="./web/dog2.jfif" alt="Bochi" />
         <p>Bochi<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit3.jfif" alt="Pochi" />
+        <img src="./web/dog3.jfif" alt="Pochi" />
         <p>Pochi<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit4.jfif" alt="Chokie" />
-        <p>Chokie<span class="prices">$100.0</span></p>
+        <img src="./web/dog4.jfif" alt="Chokie" />
+        <p>Chokie <span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit5.jfif" alt="Chogi" />
+        <img src="./web/dog5.jfif" alt="Chogi" />
         <p>Chogi<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
       <div class="card">
-        <img src="./web/rabbit6.jfif" alt="Pan-pan" />
+        <img src="./web/dog6.jfif" alt="Pan-pan" />
         <p>Pan-pan<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit7.jfif" alt="Bochi" />
+        <img src="./web/dog7.jfif" alt="Bochi" />
         <p>Chingkie<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit8.jfif" alt="Pookie" />
+        <img src="./web/dog8.jfif" alt="Pookie" />
         <p>Beepo<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit9.jfif" alt="Pookie" />
+        <img src="./web/dog9.jfif" alt="Pookie" />
         <p>Whity<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit10.jfif" alt="Pookie" />
+        <img src="./web/dog10.jfif" alt="Pookie" />
         <p>Koko<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
     </div>
-    <h1 class="breed">Mini Lop Rabbit</h1>
+    <h1 class="breed">Golden Retriever</h1>
     <div class="grid">
       <div class="card">
-        <img src="./web/rabbit11.jfif" alt="Pookie" />
+        <img src="./web/dog11.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit12.jfif" alt="Bochi" />
+        <img src="./web/dog12.jfif" alt="Bochi" />
         <p>Bochi<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit13.jfif" alt="Pookie" />
-        <p>Pookie <span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-
-      <!-- Repeat more cards to fill rows -->
-      <div class="card">
-        <img src="./web/rabbit14.jfif" alt="Pookie" />
+        <img src="./web/dog13.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit15.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-      <div class="card">
-        <img src="./web/rabbit16.jfif" alt="Pookie" />
+        <img src="./web/dog14.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit17.jfif" alt="Bochi" />
+        <img src="./web/dog15.jfif" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+      <div class="card">
+        <img src="./web/dog16.jfif" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/dog17.jfif" alt="Bochi" />
         <p>Bochi<span class="prices">$900.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit18.jfif" alt="Pookie" />
-        <p>Pookie<span class="prices">$100.0</span></p>
-        <a href="#" class="buy-btn">Buy</a>
-      </div>
-
-      <!-- Repeat more cards to fill rows -->
-      <div class="card">
-        <img src="./web/rabbit19.jfif" alt="Pookie" />
+        <img src="./web/dog18.jfif" alt="Pookie" />
         <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
 
       <div class="card">
-        <img src="./web/rabbit20.jfif" alt="Pookie" />
-        <p>Pookie <span class="prices">$100.0</span></p>
+        <img src="./web/dog19.jfif" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
+        <a href="#" class="buy-btn">Buy</a>
+      </div>
+
+      <div class="card">
+        <img src="./web/dog20.jfif" alt="Pookie" />
+        <p>Pookie<span class="prices">$100.0</span></p>
         <a href="#" class="buy-btn">Buy</a>
       </div>
     </div>
-
-    <script>
-      let selectedItem = null; // store clicked item
-
-      document.querySelectorAll(".buy-btn").forEach((button) => {
-        button.addEventListener("click", function (e) {
-          e.preventDefault();
-
-          // Find the product card
-          const card = this.closest(".card");
-          const productName = card.querySelector("p").childNodes[0].textContent.trim();
-          const productPrice = card.querySelector(".prices").textContent.trim();
-
-          selectedItem = {
-            name: productName,
-            price: productPrice,
-            qty: 1,
-          };
-
-          // Update modal text with pet name
-          document.getElementById(
-            "confirmText"
-          ).innerText = `Are you sure you want to buy ${productName} for ${productPrice}?`;
-
-          // Show modal
-          document.getElementById("confirmModal").style.display = "flex";
-        });
-      });
-
-      // Cancel button
-      document.getElementById("cancelBtn").addEventListener("click", function () {
-        document.getElementById("confirmModal").style.display = "none";
-        selectedItem = null;
-      });
-
-      // Continue button
-      document.getElementById("continueBtn").addEventListener("click", function () {
-        if (selectedItem) {
-          let order = JSON.parse(localStorage.getItem("orderList")) || [];
-          order.push(selectedItem);
-          localStorage.setItem("orderList", JSON.stringify(order));
-
-          // Hide modal and go to order page
-          document.getElementById("confirmModal").style.display = "none";
-          window.location.href = "order.html";
-        }
-      });
-    </script>
   </body>
 </html>

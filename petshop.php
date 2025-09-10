@@ -1,3 +1,8 @@
+<?php
+// Include database connection
+require_once 'db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -231,12 +236,12 @@
     <header>
       <div class="logo">🐾 Fluffy Planet</div>
       <nav>
-        <a href="petshop.html" class="home">Home</a>
-        <a href="categories.html">Categories</a>
-        <a href="newarrival.html">New Arrivals</a>
-        <a href="order.html">Order</a>
-        <a href="order_transactions.html">Order Transaction</a>
-        <a href="order.html">History</a>
+        <a href="petshop.php" class="home">Home</a>
+        <a href="categories.php">Categories</a>
+        <a href="newarrival.php">New Arrivals</a>
+        <a href="order.php">Order</a>
+        <a href="order_transactions.php">Order Transaction</a>
+        <a href="order.php">History</a>
       </nav>
       <div class="search-box">
         <input type="text" placeholder="Search a Breed..." /><button class="search-btn">Search</button>
@@ -252,7 +257,7 @@
           help<br />
           you match you with the perfect pet for your lifestyle.
         </p>
-        <a href="categories.html"><button class="buy_now">Buy Now</button></a>
+        <a href="categories.php"><button class="buy_now">Buy Now</button></a>
       </div>
 
       <img src="./web/dogbg.png" class="dog-img" alt="Dog" />

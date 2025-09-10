@@ -1,3 +1,8 @@
+<?php
+// Include database connection
+require_once 'db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -156,12 +161,12 @@
     <header>
         <div class="logo">🐾 Fluffy Planet</div>
         <nav>
-            <a href="petshop.html">Home</a>
-            <a href="categories.html">Categories</a>
-            <a href="newarrival.html">New Arrivals</a>
-            <a href="order.html" class="order">Order</a>
-            <a href="order_transactions.html">Order Transaction</a>
-            <a href="history.html">History</a>
+            <a href="petshop.php">Home</a>
+            <a href="categories.php">Categories</a>
+            <a href="newarrival.php">New Arrivals</a>
+            <a href="order.php" class="order">Order</a>
+            <a href="order_transactions.php">Order Transaction</a>
+            <a href="history.php">History</a>
         </nav>
     </header>
 
@@ -292,7 +297,7 @@
             localStorage.removeItem("orderList");
 
             // Redirect to order transaction
-            window.location.href = "order_transactions.html";
+            window.location.href = "order_transactions.php";
         }
     </script>
 
