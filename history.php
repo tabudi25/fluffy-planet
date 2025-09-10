@@ -1,6 +1,10 @@
 <?php
 // Include database connection
 require_once 'db.php';
+
+// Fetch all orders from database
+$sql = "SELECT * FROM orders ORDER BY date DESC, id DESC";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -185,43 +189,46 @@ require_once 'db.php';
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="historyTableBody">
-                    <!-- Empty at start -->
+                <tbody>
+                    <?php if ($result && $result->num_rows > 0): ?>
+                        <?php while($order = $result->fetch_assoc()): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($order['id']); ?></td>
+                                <td><?php echo htmlspecialchars($order['date']); ?></td>
+                                <td><?php echo htmlspecialchars($order['customer']); ?></td>
+                                <td><?php echo htmlspecialchars($order['gmail']); ?></td>
+                                <td><?php echo htmlspecialchars($order['tel_number']); ?></td>
+                                <td>
+                                    <?php 
+                                    // Parse animal JSON data and display nicely
+                                    $animals = json_decode($order['animal'], true);
+                                    if ($animals && is_array($animals)) {
+                                        $animalList = [];
+                                        foreach ($animals as $animal) {
+                                            $animalList[] = $animal['name'] . ' (x' . $animal['qty'] . ')';
+                                        }
+                                        echo htmlspecialchars(implode(', ', $animalList));
+                                    } else {
+                                        echo htmlspecialchars($order['animal']);
+                                    }
+                                    ?>
+                                </td>
+                                <td>$<?php echo number_format($order['total'], 2); ?></td>
+                                <td><span class="status <?php echo strtolower($order['payment_status']); ?>"><?php echo ucfirst($order['payment_status']); ?></span></td>
+                                <td><span class="status <?php echo strtolower($order['order_status']); ?>"><?php echo ucfirst($order['order_status']); ?></span></td>
+                                <td class="actions"><a href="#">View</a></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="10" style="text-align:center; color:#777;">No orders found in database</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const historyTableBody = document.getElementById("historyTableBody");
-            const history = JSON.parse(localStorage.getItem("orderHistory")) || [];
-
-            if (history.length === 0) {
-                // No orders yet -> show a placeholder row
-                const emptyRow = document.createElement("tr");
-                emptyRow.innerHTML = `<td colspan="10" style="text-align:center; color:#777;">No orders yet</td>`;
-                historyTableBody.appendChild(emptyRow);
-            } else {
-                history.forEach(order => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${order.orderNumber}</td>
-                        <td>${order.date}</td>
-                        <td>${order.customer}</td>
-                        <td>${order.gmail || "N/A"}</td>
-                        <td>${order.telNumber || "N/A"}</td>
-                        <td>${order.items}</td>
-                        <td>${order.total}</td>
-                        <td><span class="status ${order.paymentStatus.toLowerCase()}">${order.paymentStatus}</span></td>
-                        <td><span class="status ${order.orderStatus.toLowerCase()}">${order.orderStatus}</span></td>
-                        <td class="actions"><a href="transaction.html">View</a></td>
-                    `;
-                    historyTableBody.prepend(row);
-                });
-            }
-        });
-    </script>
 </body>
 
 </html>

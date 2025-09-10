@@ -1,6 +1,31 @@
 <?php
 // Include database connection
 require_once 'db.php';
+
+// Handle form submission
+if ($_POST) {
+    $id = $_POST['order_id'];
+    $date = $_POST['date'];
+    $customer = $_POST['customer'];
+    $gmail = $_POST['gmail'];
+    $tel_number = $_POST['tel_number'];
+    $animal = $_POST['animal'];
+    $total = $_POST['total'];
+    $payment_status = 'paid';
+    $order_status = 'processing';
+    
+    // Insert into database
+    $stmt = $conn->prepare("INSERT INTO orders (id, date, customer, gmail, tel_number, animal, total, payment_status, order_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssdss", $id, $date, $customer, $gmail, $tel_number, $animal, $total, $payment_status, $order_status);
+    
+    if ($stmt->execute()) {
+        echo "<script>alert('Order saved successfully!'); window.location.href = 'order_transactions.php';</script>";
+    } else {
+        echo "<script>alert('Error saving order: " . $conn->error . "');</script>";
+    }
+    
+    $stmt->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -183,21 +208,25 @@ require_once 'db.php';
         <!-- Payment Info -->
 
         <div class="box">
-            <form action="save_order.php"></form>
-            <h2>Payment Information</h2>
-            <input type="text" class="half-input" placeholder="First Name">
-            <input type="text" class="half-input" placeholder="Last Name">
-            <input type="text" class="half-input" placeholder="Phone Number">
-            <input type="email" class="half-input" placeholder="Email">
-            <input type="text" class="half-input" placeholder="Address">
-            <input type="date" class="half-input" id="orderDate">
+            <form id="orderForm" method="POST" action="">
+                <h2>Payment Information</h2>
+                <input type="hidden" name="order_id" id="orderId">
+                <input type="hidden" name="animal" id="animalData">
+                <input type="hidden" name="total" id="totalData">
+                <input type="text" name="first_name" class="half-input" placeholder="First Name" required>
+                <input type="text" name="last_name" class="half-input" placeholder="Last Name" required>
+                <input type="text" name="tel_number" class="half-input" placeholder="Phone Number" required>
+                <input type="email" name="gmail" class="half-input" placeholder="Email" required>
+                <input type="text" class="half-input" placeholder="Address">
+                <input type="date" name="date" class="half-input" id="orderDate" required>
+                <input type="hidden" name="customer" id="customerName">
 
-            <div class="payment-methods">
-                <button>COD</button>
-                <button>G CASH</button>
-                <button>Credit Card</button>
-            </div>
-            <button class="confirm-btn" onclick="confirmOrder()">Confirm Payment</button>
+                <div class="payment-methods">
+                    <button type="button" data-payment="COD">COD</button>
+                    <button type="button" data-payment="G CASH">G CASH</button>
+                    <button type="button" data-payment="Credit Card">Credit Card</button>
+                </div>
+                <button type="submit" class="confirm-btn">Confirm Payment</button>
             </form>
         </div>
 
@@ -256,38 +285,62 @@ require_once 'db.php';
             });
         });
 
+        // Handle form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            confirmOrder();
+        });
+
         // Save order info
         function confirmOrder() {
             if (!confirm("Are you sure you want to proceed with this order?")) {
                 return; // cancel if user clicks "No"
             }
 
-            const firstName = document.querySelector('input[placeholder="First Name"]').value.trim();
-            const lastName = document.querySelector('input[placeholder="Last Name"]').value.trim();
+            const firstName = document.querySelector('input[name="first_name"]').value.trim();
+            const lastName = document.querySelector('input[name="last_name"]').value.trim();
             const fullName = firstName + " " + lastName;
-            const phone = document.querySelector('input[placeholder="Phone Number"]').value.trim();
-            const email = document.querySelector('input[placeholder="Email"]').value.trim();
-            const address = document.querySelector('input[placeholder="Address"]').value.trim();
+            const phone = document.querySelector('input[name="tel_number"]').value.trim();
+            const email = document.querySelector('input[name="gmail"]').value.trim();
             const date = document.getElementById("orderDate").value;
-            const payment = document.querySelector(".payment-methods button.active")?.innerText || "COD";
+
+            // Validation
+            if (!firstName || !lastName || !phone || !email || !date) {
+                alert('Please fill in all required fields.');
+                return;
+            }
 
             const pets = JSON.parse(localStorage.getItem("orderList")) || [];
-            const total = document.getElementById("totalAmount").innerText.replace("Total: ", "");
+            const totalText = document.getElementById("totalAmount").innerText.replace("Total: $", "");
+            const total = parseFloat(totalText);
+
+            if (pets.length === 0) {
+                alert('Please add some pets to your order first.');
+                return;
+            }
 
             // Generate random order number
-            const orderNumber = "#FP" + Math.floor(100000 + Math.random() * 900000);
+            const orderNumber = "FP" + Math.floor(100000 + Math.random() * 900000);
 
-            // Build order data with tel, email, address
+            // Prepare animal data (JSON string of pets)
+            const animalData = JSON.stringify(pets);
+
+            // Fill hidden form fields
+            document.getElementById('orderId').value = orderNumber;
+            document.getElementById('customerName').value = fullName;
+            document.getElementById('animalData').value = animalData;
+            document.getElementById('totalData').value = total.toFixed(2);
+
+            // Build order data for localStorage (for transactions page)
             const orderData = {
                 orderNumber,
                 name: fullName,
-                tel: phone,          // ✅ Save tel number
-                email: email,        // ✅ Save gmail/email
-                address: address,    // ✅ Save address
+                tel: phone,
+                email: email,
                 date,
-                payment,
+                payment: document.querySelector(".payment-methods button.active")?.innerText || "COD",
                 items: pets.length + " Item(s)",
-                total
+                total: "$" + total.toFixed(2)
             };
 
             // Save in localStorage (so transactions page can read it)
@@ -296,8 +349,8 @@ require_once 'db.php';
             // Clear cart
             localStorage.removeItem("orderList");
 
-            // Redirect to order transaction
-            window.location.href = "order_transactions.php";
+            // Submit the form
+            document.getElementById('orderForm').submit();
         }
     </script>
 
