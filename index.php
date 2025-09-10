@@ -1,3 +1,9 @@
+<?php
+// Include database connection
+require_once 'db.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -264,7 +270,7 @@
             <a href="categories.html"><button class="buy_now">Buy Now</button></a>
         </div>
 
-        <img src="dogbg.png" class="dog-img" alt="Dog" />
+        <img src="./web/dogbg.png" class="dog-img" alt="Dog" />
     </section>
     <hr>
     <h1 class="h3">Best Seller</h1>
@@ -273,27 +279,27 @@
     <section class="hero-2">
         <div class="grid">
             <div class="card">
-                <img src="telapia1.jfif" alt="" class="cat">
+                <img src="./web/telapia1.jfif" alt="" class="cat">
                 <h4 class="cat-name">Telapia Cat</h4>
 
             </div>
             <div class="card">
-                <img src="Dog1.jfif" alt="" class="cat">
+                <img src="./web/Dog1.jfif" alt="" class="cat">
                 <h4 class="cat-name">Siberian Husky</h4>
 
             </div>
             <div class="card">
-                <img src="Bird1.jfif" alt="" class="cat">
+                <img src="./web/Bird1.jfif" alt="" class="cat">
                 <h4 class="cat-name">Blue & Yellow Macaw</h4>
 
             </div>
             <div class="card">
-                <img src="Hamster1.jfif" alt="" class="cat">
+                <img src="./web/Hamster1.jfif" alt="" class="cat">
                 <h4 class="cat-name">Dwarf Hamster</h4>
 
             </div>
             <div class="card">
-                <img src="Fish1.jfif" alt="" class="cat">
+                <img src="./web/Fish1.jfif" alt="" class="cat">
                 <h4 class="cat-name">Koi Fish</h4>
 
             </div>
@@ -309,6 +315,19 @@
             <h4>Developed by Jun Alexes Orao (2025)</h4>
         </div>
     </footer>
+<?php 
+    // Database connection is now available as $conn
+    // You can use it for any database operations
+
+    // Print connection status to verify database is connected
+    if ($conn) {
+        echo "<h2>Database Connection Status</h2>";
+        echo "<p style='color: green; font-weight: bold;'>✅ Database connected successfully!</p>";
+    } else {
+        echo "<p style='color: red; font-weight: bold;'>❌ Database connection failed!</p>";
+    } 
+
+?>
 </body>
 
 </html>
