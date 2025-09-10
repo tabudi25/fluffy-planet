@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluffy Planet - Checkout</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fff8f1;
+            color: #2c2c2c;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #fff;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            margin-right: 150px;
+        }
+
+        nav a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        nav a:hover {
+            background-color: #7c7a78;
+        }
+
+        .order {
+            text-decoration: underline;
+            background-color: #eccfb2;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px auto;
+            max-width: 1100px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .box {
+            background-color: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            flex: 1;
+            min-width: 320px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            font-size: 16px;
+            border-collapse: collapse;
+        }
+
+        table td {
+            padding: 10px 6px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .half-input {
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 14px;
+            width: calc(50% - 14px);
+            display: inline-block;
+        }
+
+        .payment-methods {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .payment-methods button {
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #f5f5f5;
+            font-weight: 500;
+        }
+
+        .payment-methods button.active {
+            background-color: #eccfb2;
+        }
+
+        .confirm-btn {
+            background-color: #4caf50;
+            color: white;
+            font-weight: bold;
+            display: block;
+            margin: 20px auto 0;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 25px;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background-color: crimson;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">🐾 Fluffy Planet</div>
+        <nav>
+            <a href="petshop.html">Home</a>
+            <a href="categories.html">Categories</a>
+            <a href="newarrival.html">New Arrivals</a>
+            <a href="order.html" class="order">Order</a>
+            <a href="order_transactions.html">Order Transaction</a>
+            <a href="history.html">History</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Pet List -->
+        <div class="box">
+            <h2>Pet List</h2>
+            <table id="petTable">
+                <!-- rows will be filled by JS -->
+            </table>
+            <div class="total" id="totalAmount">Total: $0.00</div>
+        </div>
+
+        <!-- Payment Info -->
+
+        <div class="box">
+            <form action="save_order.php"></form>
+            <h2>Payment Information</h2>
+            <input type="text" class="half-input" placeholder="First Name">
+            <input type="text" class="half-input" placeholder="Last Name">
+            <input type="text" class="half-input" placeholder="Phone Number">
+            <input type="email" class="half-input" placeholder="Email">
+            <input type="text" class="half-input" placeholder="Address">
+            <input type="date" class="half-input" id="orderDate">
+
+            <div class="payment-methods">
+                <button>COD</button>
+                <button>G CASH</button>
+                <button>Credit Card</button>
+            </div>
+            <button class="confirm-btn" onclick="confirmOrder()">Confirm Payment</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Auto-fill today's date
+        document.addEventListener("DOMContentLoaded", function () {
+            const today = new Date().toISOString().split("T")[0];
+            document.getElementById("orderDate").value = today;
+
+            loadCart(); // load saved cart items
+        });
+
+        // Load cart from localStorage
+        function loadCart() {
+            const petTable = document.getElementById("petTable");
+            const totalAmount = document.getElementById("totalAmount");
+
+            let orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+
+            petTable.innerHTML = ""; // clear first
+            let total = 0;
+
+            orderList.forEach((item, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${item.qty}</td>
+                    <td>${item.price}</td>
+                    <td><button class="delete-btn" onclick="deleteItem(${index})">Delete</button></td>
+                `;
+                petTable.appendChild(row);
+
+                // Add to total (strip $ and convert to number)
+                let priceNum = parseFloat(item.price.replace("$", ""));
+                total += priceNum * item.qty;
+            });
+
+            totalAmount.textContent = "Total: $" + total.toFixed(2);
+        }
+
+        // Delete item by index
+        function deleteItem(index) {
+            let orderList = JSON.parse(localStorage.getItem("orderList")) || [];
+            orderList.splice(index, 1); // remove 1 item at index
+            localStorage.setItem("orderList", JSON.stringify(orderList));
+            loadCart(); // reload table
+        }
+
+        // Select payment method
+        document.querySelectorAll(".payment-methods button").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.querySelectorAll(".payment-methods button").forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+            });
+        });
+
+        // Save order info
+        function confirmOrder() {
+            if (!confirm("Are you sure you want to proceed with this order?")) {
+                return; // cancel if user clicks "No"
+            }
+
+            const firstName = document.querySelector('input[placeholder="First Name"]').value.trim();
+            const lastName = document.querySelector('input[placeholder="Last Name"]').value.trim();
+            const fullName = firstName + " " + lastName;
+            const phone = document.querySelector('input[placeholder="Phone Number"]').value.trim();
+            const email = document.querySelector('input[placeholder="Email"]').value.trim();
+            const address = document.querySelector('input[placeholder="Address"]').value.trim();
+            const date = document.getElementById("orderDate").value;
+            const payment = document.querySelector(".payment-methods button.active")?.innerText || "COD";
+
+            const pets = JSON.parse(localStorage.getItem("orderList")) || [];
+            const total = document.getElementById("totalAmount").innerText.replace("Total: ", "");
+
+            // Generate random order number
+            const orderNumber = "#FP" + Math.floor(100000 + Math.random() * 900000);
+
+            // Build order data with tel, email, address
+            const orderData = {
+                orderNumber,
+                name: fullName,
+                tel: phone,          // ✅ Save tel number
+                email: email,        // ✅ Save gmail/email
+                address: address,    // ✅ Save address
+                date,
+                payment,
+                items: pets.length + " Item(s)",
+                total
+            };
+
+            // Save in localStorage (so transactions page can read it)
+            localStorage.setItem("orderData", JSON.stringify(orderData));
+
+            // Clear cart
+            localStorage.removeItem("orderList");
+
+            // Redirect to order transaction
+            window.location.href = "order_transactions.html";
+        }
+    </script>
+
+</body>
+
+</html>
