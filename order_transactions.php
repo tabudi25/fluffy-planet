@@ -113,12 +113,12 @@ require_once 'db.php';
     <header>
         <div class="logo">🐾 Fluffy Planet</div>
         <nav>
-            <a href="petshop.php">Home</a>
-            <a href="categories.php">Categories</a>
-            <a href="newarrival.php">New Arrivals</a>
-            <a href="order.php">Order</a>
-            <a href="order_transactions.php" class="order">Order Transaction</a>
-            <a href="history.php">History</a>
+            <a href="<?= base_url('petshop') ?>">Home</a>
+            <a href="<?= base_url('categories') ?>">Categories</a>
+            <a href="<?= base_url('newarrival') ?>">New Arrivals</a>
+            <a href="<?= base_url('order') ?>">Order</a>
+            <a href="<?= base_url('order_transactions') ?>" class="order">Order Transaction</a>
+            <a href="<?= base_url('history') ?>">History</a>
         </nav>
     </header>
 
@@ -160,77 +160,82 @@ require_once 'db.php';
                     <td id="orderTotal">$0.00</td>
                 </tr>
             </table>
-            <div class="total">Status: Processing</div>
+            <!-- Status: Only show if orderData exists -->
+            <div class="total" id="orderStatus" style="display: none;">Status: Processing</div>
+            
         </div>
 
         <!-- Confirm Button -->
         <button class="download-btn" id="confirmBtn">Confirm</button>
+        
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const orderData = JSON.parse(localStorage.getItem("orderData"));
 
-            // Function to format number as 5 digits with leading zeros
             function formatOrderNumber(num) {
                 return num.toString().padStart(5, '0');
             }
 
-            // Get last order number from localStorage
             let lastOrderNumber = parseInt(localStorage.getItem("lastOrderNumber") || "0", 10);
             let newOrderNumber = lastOrderNumber + 1;
-
-            // Save new last order number
             localStorage.setItem("lastOrderNumber", newOrderNumber);
 
-            // Assign formatted number
             const formattedOrderNumber = formatOrderNumber(newOrderNumber);
 
-            // Fill in order details
             document.getElementById("orderNumber").textContent = formattedOrderNumber;
             if (orderData) {
                 document.getElementById("customerName").textContent = orderData.name || "---";
                 document.getElementById("customerTel").textContent = orderData.tel || "---";
                 document.getElementById("customerEmail").textContent = orderData.email || "---";
-                document.getElementById("customerAddress").textContent = orderData.address || "---";
+                document.getElementById("customerAddress").textContent = orderData.address || "---"; // ✅ ADDRESS
                 document.getElementById("orderDate").textContent = orderData.date || "---";
                 document.getElementById("paymentMethod").textContent = orderData.payment || "---";
                 document.getElementById("orderTotal").textContent = orderData.total || "$0.00";
+
+                // Show status only if orderData exists
+                document.getElementById("orderStatus").style.display = "block";
             }
 
-            // Confirm button
             document.getElementById("confirmBtn").addEventListener("click", function () {
+                if (!orderData) {
+                    alert("No order data to confirm!");
+                    return;
+                }
+
                 const newHistory = {
                     orderNumber: formattedOrderNumber,
-                    date: orderData ? orderData.date : new Date().toLocaleDateString(),
-                    customer: orderData ? orderData.name : "Guest",
-                    telNumber: orderData ? orderData.tel : "---",   // ✅ match history.html
-                    gmail: orderData ? orderData.email : "---",     // ✅ match history.html
-                    address: orderData ? orderData.address : "---",
-                    items: orderData ? (orderData.items || "1 Item") : "1 Item",
-                    total: orderData ? orderData.total : "$0.00",
-                    payment: orderData ? orderData.payment : "---",
+                    date: orderData.date || new Date().toLocaleDateString(),
+                    customer: orderData.name || "Guest",
+                    telNumber: orderData.tel || "---",
+                    gmail: orderData.email || "---",
+                    address: orderData.address || "---", // ✅ save address
+                    items: orderData.items || "1 Item",
+                    total: orderData.total || "$0.00",
+                    payment: orderData.payment || "---",
                     paymentStatus: "Paid",
                     orderStatus: "Processing"
                 };
 
-                // Save to localStorage history
                 let history = JSON.parse(localStorage.getItem("orderHistory")) || [];
                 history.push(newHistory);
                 localStorage.setItem("orderHistory", JSON.stringify(history));
 
-                // Clear current order (so the page looks empty)
                 localStorage.removeItem("orderData");
                 document.getElementById("customerName").textContent = "---";
                 document.getElementById("customerTel").textContent = "---";
                 document.getElementById("customerEmail").textContent = "---";
-                document.getElementById("customerAddress").textContent = "---";
+                document.getElementById("customerAddress").textContent = "---"; // reset address
                 document.getElementById("orderDate").textContent = "---";
                 document.getElementById("paymentMethod").textContent = "---";
                 document.getElementById("orderTotal").textContent = "$0.00";
 
+                // Hide status after confirm
+                document.getElementById("orderStatus").style.display = "none";
+
                 alert("Order confirmed and added to history!");
-                window.location.href = "history.php";
+                window.location.href = "<?= base_url('history') ?>";
             });
         });
     </script>

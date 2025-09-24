@@ -2,7 +2,6 @@
 // Include database connection
 require_once 'db.php';
 
-// Handle form submission
 if ($_POST) {
     $id = $_POST['order_id'];
     $date = $_POST['date'];
@@ -11,15 +10,15 @@ if ($_POST) {
     $tel_number = $_POST['tel_number'];
     $animal = $_POST['animal'];
     $total = $_POST['total'];
+    $address = $_POST['address']; // ✅ ADDRESS
     $payment_status = 'paid';
     $order_status = 'processing';
     
-    // Insert into database
-    $stmt = $conn->prepare("INSERT INTO orders (id, date, customer, gmail, tel_number, animal, total, payment_status, order_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssdss", $id, $date, $customer, $gmail, $tel_number, $animal, $total, $payment_status, $order_status);
+    $stmt = $conn->prepare("INSERT INTO orders (id, date, customer, gmail, tel_number, address, animal, total, payment_status, order_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssdss", $id, $date, $customer, $gmail, $tel_number, $address, $animal, $total, $payment_status, $order_status);
     
     if ($stmt->execute()) {
-        echo "<script>alert('Order saved successfully!'); window.location.href = 'order_transactions.php';</script>";
+        echo "<script>alert('Order saved successfully!'); window.location.href = '<?= base_url('order_transactions') ?>';</script>";
     } else {
         echo "<script>alert('Error saving order: " . $conn->error . "');</script>";
     }
@@ -186,12 +185,12 @@ if ($_POST) {
     <header>
         <div class="logo">🐾 Fluffy Planet</div>
         <nav>
-            <a href="petshop.php">Home</a>
-            <a href="categories.php">Categories</a>
-            <a href="newarrival.php">New Arrivals</a>
-            <a href="order.php" class="order">Order</a>
-            <a href="order_transactions.php">Order Transaction</a>
-            <a href="history.php">History</a>
+            <a href="<?= base_url('petshop') ?>">Home</a>
+            <a href="<?= base_url('categories') ?>">Categories</a>
+            <a href="<?= base_url('newarrival') ?>">New Arrivals</a>
+            <a href="<?= base_url('order') ?>" class="order">Order</a>
+            <a href="<?= base_url('order_transactions') ?>">Order Transaction</a>
+            <a href="<?= base_url('history') ?>">History</a>
         </nav>
     </header>
 
@@ -199,27 +198,24 @@ if ($_POST) {
         <!-- Pet List -->
         <div class="box">
             <h2>Pet List</h2>
-            <table id="petTable">
-                <!-- rows will be filled by JS -->
-            </table>
+            <table id="petTable"></table>
             <div class="total" id="totalAmount">Total: $0.00</div>
         </div>
 
         <!-- Payment Info -->
-
         <div class="box">
             <form id="orderForm" method="POST" action="">
                 <h2>Payment Information</h2>
                 <input type="hidden" name="order_id" id="orderId">
                 <input type="hidden" name="animal" id="animalData">
                 <input type="hidden" name="total" id="totalData">
+                <input type="hidden" name="customer" id="customerName">
                 <input type="text" name="first_name" class="half-input" placeholder="First Name" required>
                 <input type="text" name="last_name" class="half-input" placeholder="Last Name" required>
                 <input type="text" name="tel_number" class="half-input" placeholder="Phone Number" required>
                 <input type="email" name="gmail" class="half-input" placeholder="Email" required>
-                <input type="text" class="half-input" placeholder="Address">
+                <input type="text" name="address" class="half-input" placeholder="Address" required> <!-- ✅ ADDRESS -->
                 <input type="date" name="date" class="half-input" id="orderDate" required>
-                <input type="hidden" name="customer" id="customerName">
 
                 <div class="payment-methods">
                     <button type="button" data-payment="COD">COD</button>
@@ -229,55 +225,46 @@ if ($_POST) {
                 <button type="submit" class="confirm-btn">Confirm Payment</button>
             </form>
         </div>
-
     </div>
 
     <script>
-        // Auto-fill today's date
         document.addEventListener("DOMContentLoaded", function () {
             const today = new Date().toISOString().split("T")[0];
             document.getElementById("orderDate").value = today;
-
-            loadCart(); // load saved cart items
+            loadCart();
         });
 
-        // Load cart from localStorage
         function loadCart() {
             const petTable = document.getElementById("petTable");
             const totalAmount = document.getElementById("totalAmount");
 
             let orderList = JSON.parse(localStorage.getItem("orderList")) || [];
-
-            petTable.innerHTML = ""; // clear first
+            petTable.innerHTML = "";
             let total = 0;
 
             orderList.forEach((item, index) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td>${item.name}</td>
-                    <td>${item.qty}</td>
                     <td>${item.price}</td>
                     <td><button class="delete-btn" onclick="deleteItem(${index})">Delete</button></td>
                 `;
                 petTable.appendChild(row);
 
-                // Add to total (strip $ and convert to number)
                 let priceNum = parseFloat(item.price.replace("$", ""));
-                total += priceNum * item.qty;
+                total += priceNum * item.qty; // ✅ still uses qty for calculations
             });
 
             totalAmount.textContent = "Total: $" + total.toFixed(2);
         }
 
-        // Delete item by index
         function deleteItem(index) {
             let orderList = JSON.parse(localStorage.getItem("orderList")) || [];
-            orderList.splice(index, 1); // remove 1 item at index
+            orderList.splice(index, 1);
             localStorage.setItem("orderList", JSON.stringify(orderList));
-            loadCart(); // reload table
+            loadCart();
         }
 
-        // Select payment method
         document.querySelectorAll(".payment-methods button").forEach(btn => {
             btn.addEventListener("click", function () {
                 document.querySelectorAll(".payment-methods button").forEach(b => b.classList.remove("active"));
@@ -285,27 +272,23 @@ if ($_POST) {
             });
         });
 
-        // Handle form submission
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
             confirmOrder();
         });
 
-        // Save order info
         function confirmOrder() {
-            if (!confirm("Are you sure you want to proceed with this order?")) {
-                return; // cancel if user clicks "No"
-            }
+            if (!confirm("Are you sure you want to proceed with this order?")) return;
 
             const firstName = document.querySelector('input[name="first_name"]').value.trim();
             const lastName = document.querySelector('input[name="last_name"]').value.trim();
             const fullName = firstName + " " + lastName;
             const phone = document.querySelector('input[name="tel_number"]').value.trim();
             const email = document.querySelector('input[name="gmail"]').value.trim();
+            const address = document.querySelector('input[name="address"]').value.trim(); // ✅ ADDRESS
             const date = document.getElementById("orderDate").value;
 
-            // Validation
-            if (!firstName || !lastName || !phone || !email || !date) {
+            if (!firstName || !lastName || !phone || !email || !address || !date) {
                 alert('Please fill in all required fields.');
                 return;
             }
@@ -319,41 +302,30 @@ if ($_POST) {
                 return;
             }
 
-            // Generate random order number
             const orderNumber = "FP" + Math.floor(100000 + Math.random() * 900000);
-
-            // Prepare animal data (JSON string of pets)
             const animalData = JSON.stringify(pets);
 
-            // Fill hidden form fields
             document.getElementById('orderId').value = orderNumber;
             document.getElementById('customerName').value = fullName;
             document.getElementById('animalData').value = animalData;
             document.getElementById('totalData').value = total.toFixed(2);
 
-            // Build order data for localStorage (for transactions page)
             const orderData = {
                 orderNumber,
                 name: fullName,
                 tel: phone,
                 email: email,
+                address: address, // ✅ save to localStorage
                 date,
                 payment: document.querySelector(".payment-methods button.active")?.innerText || "COD",
                 items: pets.length + " Item(s)",
                 total: "$" + total.toFixed(2)
             };
 
-            // Save in localStorage (so transactions page can read it)
             localStorage.setItem("orderData", JSON.stringify(orderData));
-
-            // Clear cart
             localStorage.removeItem("orderList");
-
-            // Submit the form
             document.getElementById('orderForm').submit();
         }
     </script>
-
 </body>
-
 </html>

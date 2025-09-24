@@ -131,12 +131,12 @@ require_once 'db.php';
     <header>
       <div class="logo">🐾 Fluffy Planet</div>
       <nav>
-        <a href="petshop.php">Home</a>
-        <a href="categories.php" class="categories">Categories</a>
-        <a href="newarrival.php">New Arrivals</a>
-        <a href="order.php">Order</a>
-        <a href="order_transactions.php">Order Transaction</a>
-        <a href="order.php">History</a>
+        <a href="<?= base_url('petshop') ?>">Home</a>
+        <a href="<?= base_url('categories') ?>" class="categories">Categories</a>
+        <a href="<?= base_url('newarrival') ?>">New Arrivals</a>
+        <a href="<?= base_url('order') ?>">Order</a>
+        <a href="<?= base_url('order_transactions') ?>">Order Transaction</a>
+        <a href="<?= base_url('history') ?>">History</a>
       </nav>
       <div class="search-box">
         <input type="text" placeholder="Search a Breed..." /><button class="search-btn">Search</button>

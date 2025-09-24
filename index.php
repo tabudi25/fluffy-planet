@@ -246,12 +246,12 @@ require_once 'db.php';
     <header>
         <div class="logo">🐾 Fluffy Planet</div>
         <nav>
-            <a href="petshop.php" class="home">Home</a>
-            <a href="categories.php">Categories</a>
-            <a href="newarrival.php">New Arrivals</a>
-            <a href="order.php">Order</a>
-            <a href="order_transactions.php">Order Transaction</a>
-            <a href="order.php">History</a>
+            <a href="<?= base_url('petshop') ?>" class="home">Home</a>
+            <a href="<?= base_url('categories') ?>" class="categories">Categories</a>
+            <a href="<?= base_url('newarrival') ?>">New Arrivals</a>
+            <a href="<?= base_url('order') ?>">Order</a>
+            <a href="<?= base_url('order_transactions') ?>">Order Transaction</a>
+            <a href="<?= base_url('history') ?>">History</a>
         </nav>
         <div class="search-box"><input type="text" placeholder="Search a Breed..."><button
                 class="search-btn">Search</button>
@@ -320,12 +320,7 @@ require_once 'db.php';
     // You can use it for any database operations
 
     // Print connection status to verify database is connected
-    if ($conn) {
-        echo "<h2>Database Connection Status</h2>";
-        echo "<p style='color: green; font-weight: bold;'>✅ Database connected successfully!</p>";
-    } else {
-        echo "<p style='color: red; font-weight: bold;'>❌ Database connection failed!</p>";
-    } 
+    if ($conn) {}
 
 ?>
 </body>
